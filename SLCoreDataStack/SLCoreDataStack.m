@@ -215,15 +215,22 @@ NSString *const SLCoreDataStackErrorDomain = @"SLCoreDataStackErrorDomain";
     if (self = [super init]) {
         _observingManagedObjectContexts = [NSPointerArray pointerArrayWithOptions:NSPointerFunctionsWeakMemory];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_automaticallySaveDataStore)
-                                                     name:UIApplicationWillTerminateNotification
-                                                   object:nil];
+        #if __IPHONE_OS_VERSION_MIN_REQUIRED
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(_automaticallySaveDataStore)
+                                                         name:UIApplicationWillTerminateNotification
+                                                       object:nil];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self
-                                                 selector:@selector(_automaticallySaveDataStore)
-                                                     name:UIApplicationDidEnterBackgroundNotification
-                                                   object:nil];
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(_automaticallySaveDataStore)
+                                                         name:UIApplicationDidEnterBackgroundNotification
+                                                       object:nil];
+        #else
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(_automaticallySaveDataStore)
+                                                         name:NSApplicationWillTerminateNotification
+                                                       object:nil];
+        #endif
     }
     return self;
 }
