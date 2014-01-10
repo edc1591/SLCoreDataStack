@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name          = 'SLCoreDataStack'
-  spec.version       = '0.4.4'
+  spec.version       = '0.4.5'
   spec.ios.deployment_target = '6.0'
   spec.osx.deployment_target = '10.8'
   spec.license       = 'MIT'
